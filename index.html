@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="./assets/css/style.css">
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-        <script src="./assets/js/beer.js"></script>
-        <title>Document</title>
-    </head>
-    <body>
-        <div id="map">
-
-        </div>
-        <script
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" placeholder="Starting Point..." id="startingInput" />
+    <input type="text" placeholder="Destination..." id="destinationInput" />
+    <input type="text" placeholder="Waypoints..." id="waypointInput" />
+    <input type="button" value="search" id="searchBtn" />
+    <input type="button" value="add" id="waypointBtn" />
+    <div id="map"></div>
+    <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAC9rmhTE_NTC3kZdlSEa-UsX__Gtznmi0&callback=initMap&libraries=&v=weekly"
       async
     ></script>
-    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./assets/js/beer.js"></script>
+  </body>
 </html>
