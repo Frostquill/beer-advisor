@@ -13,6 +13,7 @@ let waypnts = [];
 const renderDirectionOnMap = (origin, destination) => {
   let directionService = new google.maps.DirectionsService(),
     directionRenderer = new google.maps.DirectionsRenderer(),
+    // what we are sending
     request = {
       origin: origin,
       destination: destination,
@@ -29,6 +30,7 @@ const renderDirectionOnMap = (origin, destination) => {
 $("#waypointBtn").on("click", function () {
   waypointInput = $("#waypointInput").val();
   console.log("click worked");
+//   push the waypoints as an object into a new arr
   waypnts.push({
     location: waypointInput,
     stopover: true,
