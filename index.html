@@ -11,20 +11,19 @@
 </head>
 <body>
     <header>
+        <div class="hero-image"></div>
        <h1 class = "title" >Beer Advisor</h1>
        
     </header>
-    <div class="hero-image">
-        <img src="" alt="">
-    </div>
+    
     <main>
         <div class="container">
-            <div class="row">
+            <div class="row scrollable">
               
                 <h2 class = "search-title">Search for your Breweries</h2>
                 <div class="col s12 l12">
                     <input id = "search" type = "search" class = "search-bar col s6 l6">
-                    <a  id = "search-btn" class="waves-effect waves-light btn-large col s3 l3">Search</a>
+                    <a  class="waves-effect waves-light btn-large col s3 l3" id = "search-btn" >Search</a>
                </div>
                <div class="col s10 offset-s1  l4 selections">
                    <!-- <label class="check-box">
@@ -54,12 +53,12 @@
         <div class="container">
             <div class="row">
                 <h2 class="search-title">Selected Breweries</h2>
-                <div class="col s10 offset-s1 selections"></div>
-                <div class="col s10 offset-s1 selections"></div>
-                <div class="col s10 offset-s1 selections"></div>
-                <div class="col s10 offset-s1 selections"></div>
-                <div class="col s10 offset-s1 selections"></div>
-                <div class="col s10 offset-s1 selections"></div>
+                <div class="col s10  l4 offset-s1 selections"></div>
+                <div class="col s10  l4 offset-s1 selections"></div>
+                <div class="col s10  l4 offset-s1 selections"></div>
+                <div class="col s10 l4 offset-s1 selections"></div>
+                <div class="col s10 l4 offset-s1 selections"></div>
+                <div class="col s10 l4 offset-s1 selections"></div>
                 <div class = "search-bar col s6 offset-s3">
                     <input id = "start" placeholder= "Starting Location" type = "text"></label>
                     <input id = "end"  placeholder = "Ending Location" type = "text">
@@ -72,5 +71,10 @@
         <iframe  id = "map" src="" frameborder="0"></iframe>
     </main>
 
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAC9rmhTE_NTC3kZdlSEa-UsX__Gtznmi0&callback=initMap&libraries=&v=weekly"
+    async> </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src = "assets/js/beer.js"></script>
 </body>
 </html>
