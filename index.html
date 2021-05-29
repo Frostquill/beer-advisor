@@ -4,12 +4,70 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+
     <title>Document</title>
 </head>
 <body>
     <header>
-        <div class="divone"></div>
-        <div class="divetwo"></div>
+       <h1 class = "title" >Beer Advisor</h1>
+       <div class="hero-image"></div>
     </header>
+    <main>
+        <div class="container">
+            <div class="row">
+              
+                <h2 class = "search-title">Search for your Breweries</h2>
+                <div class="col s12">
+                    <input id = "search" type = "search" class = "search-bar col s6">
+                    <a  id = "search-btn" class="waves-effect waves-light btn-large col s3">Search</a>
+               </div>
+               <div class="col s10 offset-s1 selections">
+                   <label class="check-box">
+                    <input type="checkbox" checked = "checked">
+                    <span class="checkmark"></span>
+                   </label>
+                  
+               </div>
+               <div class="col s10 offset-s1 selections"></div>
+               <div class="col s10 offset-s1 selections"></div>
+               <div class="col s10 offset-s1 selections"></div>
+               <div class="col s10  offset-s1 selections"></div>
+               <div class="col s10 offset-s1 selections"></div>
+               <div class = "col s9 offset-s1" >
+                <a  id = "next" class="waves-effect waves-light btn-large col s4">Next</a>
+               </div>
+
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="container">
+            <div class="row">
+                <h2 class="search-title">Selected Breweries</h2>
+                <div class="col s10 offset-s1 selections"></div>
+                <div class="col s10 offset-s1 selections"></div>
+                <div class="col s10 offset-s1 selections"></div>
+                <div class="col s10 offset-s1 selections"></div>
+                <div class="col s10 offset-s1 selections"></div>
+                <div class="col s10 offset-s1 selections"></div>
+                <div class = "search-bar col s6 offset-s3">
+                    <input id = "start" placeholder= "Starting Location" type = "text"></label>
+                    <input id = "end"  placeholder = "Ending Location" type = "text">
+                    <button  id = "next" class="waves-effect waves-light btn-large col s4">Next</button>
+                </div>
+
+            </div>
+        </div>
+
+        <iframe  id = "map" src="" frameborder="0"></iframe>
+    </main>
+
 </body>
 </html>
