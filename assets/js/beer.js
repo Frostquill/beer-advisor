@@ -11,8 +11,8 @@ let waypnts = [];
 
 // Calculate and render direction on the map
 const renderDirectionOnMap = (origin, destination) => {
-    // fetch the brewery api
-    // fetch()
+  // fetch the brewery api
+  // fetch()
   let directionService = new google.maps.DirectionsService(),
     directionRenderer = new google.maps.DirectionsRenderer(),
     // what we are sending
@@ -31,17 +31,16 @@ const renderDirectionOnMap = (origin, destination) => {
 };
 $("#waypointBtn").on("click", function () {
   waypointInput = $("#waypointInput").val();
-  console.log("click worked");
-//   push the waypoints as an object into a new arr
+  //   push the waypoints as an object into a new arr
   waypnts.push({
     location: waypointInput,
     stopover: true,
   });
+  waypointInput = $("#waypointInput").val("");
 });
 $("#searchBtn").on("click", function () {
   startingInput = $("#startingInput").val();
   destinationInput = $("#destinationInput").val();
 
-  console.log(startingInput, destinationInput);
   renderDirectionOnMap(startingInput, destinationInput);
 });
