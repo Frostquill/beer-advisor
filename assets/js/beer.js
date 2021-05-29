@@ -11,6 +11,8 @@ let waypnts = [];
 
 // Calculate and render direction on the map
 const renderDirectionOnMap = (origin, destination) => {
+    // fetch the brewery api
+    // fetch()
   let directionService = new google.maps.DirectionsService(),
     directionRenderer = new google.maps.DirectionsRenderer(),
     // what we are sending
