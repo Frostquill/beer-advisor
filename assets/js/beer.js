@@ -1,3 +1,14 @@
+function getBreweries() {
+  fetch("https://api.openbrewerydb.org/breweries/search?query=")
+  .then(function(response) {
+    return response.json
+  })
+  .then(function(response) {
+    let breweryName, breweryStreet, breweryCity, breweryState
+
+    $("#selections")
+  })
+}
 let map;
 
 function initMap() {
