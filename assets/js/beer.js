@@ -1,16 +1,84 @@
 function getBreweries() {
-  fetch("https://api.openbrewerydb.org/breweries/search?query=")
-  .then(function(response) {
-    return response.json
-  })
-  .then(function(response) {
-    let breweryName, breweryStreet, breweryCity, breweryState
+  fetch(
+    "https://api.openbrewerydb.org/breweries/search?query=" + $("#search").val()
+  )
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (response) {
+      // initialize variables
+      let breweryName, breweryStreet, breweryCity, breweryState;
 
-    $("#selections")
-  })
+      // populate variables with corrosponding JSON property values
+      let breweryPool = [...response];
+      console.log(breweryPool);
+      for (var i = 0; i < 6; i++) {
+        let randomArrIndex = Math.floor(Math.random() * breweryPool.length);
+        breweryName = response[randomArrIndex].name;
+        breweryStreet = response[randomArrIndex].street;
+        breweryCity = response[randomArrIndex].city;
+        breweryState = response[randomArrIndex].state;
+
+        $("#selection-container").append(
+          $(
+            "<div/>",
+            {
+              class: "col s12 m6",
+            }.append(
+              $("<div/>", {
+                class: "card",
+                id: `breweryCard${i}`,
+              })
+                .append(
+                  $("<span>", {
+                    text: breweryName,
+                    class: `breweryName${i}`,
+                  })
+                )
+
+                .append(
+                  $("<a/>", {
+                    class:
+                      "btn-floating halfway-fab waves-effect waves-light red",
+                  }).append(
+                    $("<i/>", {
+                      class: "material-icons",
+                      text: "add",
+                    })
+                  )
+                )
+
+                .append(
+                  $("<div/>", {
+                    class: "card-content",
+                    id: "breweryAddress",
+                  })
+                    .append(
+                      $("<p/>", {
+                        id: `breweryStreet${i}`,
+                        text: breweryStreet,
+                      })
+                    )
+                    .append(
+                      $("<span/>", {
+                        id: `breweryCity${i}`,
+                        text: breweryCity,
+                      }),
+                      $("<span/>", {
+                        id: `breweryState${i}`,
+                        text: breweryState,
+                      })
+                    )
+                )
+            )
+          )
+        );
+        breweryPool.splice(0, 1);
+      }
+    });
 }
+getBreweries();
 let map;
-
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 34.0523523, lng: -118.2435731 },
