@@ -11,7 +11,6 @@ function getBreweries() {
 
       // populate variables with corrosponding JSON property values
       let breweryPool = [...response];
-      console.log(breweryPool);
       for (var i = 0; i < 6; i++) {
         let randomArrIndex = Math.floor(Math.random() * breweryPool.length);
         breweryName = response[randomArrIndex].name;
@@ -19,7 +18,7 @@ function getBreweries() {
         breweryCity = response[randomArrIndex].city;
         breweryState = response[randomArrIndex].state;
 
-        $("#selection-container").append(
+        $("#selections-container").append(
           $("<div/>", {
             class: "col s12 m6",
           }).append(
@@ -70,11 +69,11 @@ function getBreweries() {
               )
           )
         );
-        breweryPool.splice(0, 1);
+        breweryPool.splice(randomArrIndex, 1);
+        console.log(breweryPool);
       }
     });
 }
-getBreweries();
 let map;
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -105,6 +104,7 @@ const renderDirectionOnMap = (origin, destination) => {
     }
   });
 };
+
 $("#waypointBtn").on("click", function () {
   waypointInput = $("#waypointInput").val();
   //   push the waypoints as an object into a new arr
@@ -114,9 +114,10 @@ $("#waypointBtn").on("click", function () {
   });
   waypointInput = $("#waypointInput").val("");
 });
-$("#searchBtn").on("click", function () {
-  startingInput = $("#startingInput").val();
-  destinationInput = $("#destinationInput").val();
+$("#search-btn").on("click", function () {
+  getBreweries();
+  // startingInput = $("#startingInput").val();
+  // destinationInput = $("#destinationInput").val();
 
-  renderDirectionOnMap(startingInput, destinationInput);
+  // renderDirectionOnMap(startingInput, destinationInput);
 });
