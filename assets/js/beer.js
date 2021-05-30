@@ -20,57 +20,54 @@ function getBreweries() {
         breweryState = response[randomArrIndex].state;
 
         $("#selection-container").append(
-          $(
-            "<div/>",
-            {
-              class: "col s12 m6",
-            }.append(
-              $("<div/>", {
-                class: "card",
-                id: `breweryCard${i}`,
-              })
-                .append(
-                  $("<span>", {
-                    text: breweryName,
-                    class: `breweryName${i}`,
+          $("<div/>", {
+            class: "col s12 m6",
+          }).append(
+            $("<div/>", {
+              class: "card",
+              id: `breweryCard${i}`,
+            })
+              .append(
+                $("<span>", {
+                  text: breweryName,
+                  class: `breweryName${i}`,
+                })
+              )
+
+              .append(
+                $("<a/>", {
+                  class:
+                    "btn-floating halfway-fab waves-effect waves-light red",
+                }).append(
+                  $("<i/>", {
+                    class: "material-icons",
+                    text: "add",
                   })
                 )
+              )
 
-                .append(
-                  $("<a/>", {
-                    class:
-                      "btn-floating halfway-fab waves-effect waves-light red",
-                  }).append(
-                    $("<i/>", {
-                      class: "material-icons",
-                      text: "add",
+              .append(
+                $("<div/>", {
+                  class: "card-content",
+                  id: "breweryAddress",
+                })
+                  .append(
+                    $("<p/>", {
+                      id: `breweryStreet${i}`,
+                      text: breweryStreet,
                     })
                   )
-                )
-
-                .append(
-                  $("<div/>", {
-                    class: "card-content",
-                    id: "breweryAddress",
-                  })
-                    .append(
-                      $("<p/>", {
-                        id: `breweryStreet${i}`,
-                        text: breweryStreet,
-                      })
-                    )
-                    .append(
-                      $("<span/>", {
-                        id: `breweryCity${i}`,
-                        text: breweryCity,
-                      }),
-                      $("<span/>", {
-                        id: `breweryState${i}`,
-                        text: breweryState,
-                      })
-                    )
-                )
-            )
+                  .append(
+                    $("<span/>", {
+                      id: `breweryCity${i}`,
+                      text: breweryCity,
+                    }),
+                    $("<span/>", {
+                      id: `breweryState${i}`,
+                      text: breweryState,
+                    })
+                  )
+              )
           )
         );
         breweryPool.splice(0, 1);
