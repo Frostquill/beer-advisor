@@ -2,27 +2,30 @@ body {
  background-color:#404040;
 }
 
-header {
-    position:relative;
-    
-}
 .hero-image {
     background-image:url("../images/beer-table.jpeg");
     /* background-size:cover; */
-    height:500px;
-    background-position:center;
+    height:250px;
+    background-position:100%;
     background-size:cover;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    
     
 }
-    
+
 .title {
-    text-align:center;
-    position:absolute;
-    width:100%;
-    top:35%;
     color:whitesmoke;
 
 }
+
+.container {
+    height:100vh;
+    margin-top: 3%;
+}
+    
+
 
 .search-title {
     text-align:center;
@@ -44,14 +47,48 @@ header {
     
 }
 
-.selections {
-    height:500px;
-    background-color:grey;
-    margin-top: 5px;
-    border-radius:5px;
-    border: 3px solid black;
+#search-btn:hover {
+    background-color:teal;
+    box-shadow:5px 5px  black;
+
 }
 
+
+#selections-container {
+    background-image: url("../images/beer-flight.jpeg");
+    background-position:center;
+    background-size:100%;
+    border-radius:10px;
+    height:50rem;
+    margin-top:10%;
+    /* filter:blur(5px); */
+    
+}
+
+.carSel {
+    margin-top:5%;
+    border:solid 5px orange;
+    border-radius:10px;
+    height:200px;
+    background-color:rgba(255,210,77, .4);
+    font-size:20px;
+    color:black;
+    font-weight:bold;
+    padding:5%;
+    text-align:center;
+
+    
+}
+
+ .addMe:hover {
+     background-color:green;
+}
+
+.addHover:hover {
+    border:1px solid;
+    box-shadow: 5px 10px rgba(255,255,255,.7);
+    
+}
 .select {
     height:50px;
     width:75px;
@@ -59,7 +96,8 @@ header {
 }
 .btn-select {
     height:200px;
-    background-color:white;
+    background-color:green;
+    
 
 }
 
@@ -71,11 +109,26 @@ header {
     
 }
 
+#next:hover {
+    background-color:teal;
+    box-shadow:5px 5px  black;
+}
+
 #nexttwo {
     background-color: #ffcc33;
     margin:10px 0 0 25%;
     color:black;
+    
+    
 }
+
+#nexttwo:hover {
+    background-color: teal;
+    box-shadow:5px 5px  black;
+   
+}
+
+
 
 .check-box {
     width:25%;

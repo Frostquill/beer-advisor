@@ -17,13 +17,12 @@ function getBreweries() {
         breweryStreet = response[randomArrIndex].street;
         breweryCity = response[randomArrIndex].city;
         breweryState = response[randomArrIndex].state;
-
         $("#selections-container").append(
           $("<div/>", {
             class: "col s12 m6",
           }).append(
             $("<div/>", {
-              class: "card",
+              class: "card carSel addHover",
               id: `breweryCard${i}`,
             })
               .append(
@@ -39,7 +38,7 @@ function getBreweries() {
                     "btn-floating halfway-fab waves-effect waves-light red",
                 }).append(
                   $("<i/>", {
-                    class: "material-icons",
+                    class: "material-icons addMe addHover",
                     text: "add",
                   })
                 )
