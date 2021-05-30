@@ -1,23 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./assets/css/style.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <title>Document</title>
-  </head>
-  <body>
+</head>
+<body>
+    <header>
+        <div class="hero-image"></div>
+       <h1 class = "title" >Beer Advisor</h1>
+       
+    </header>
+    
     <main>
-      <div id="map"></div>
+        <div class="container">
+            <div class="row scrollable">
+              <h2 class = "search-title">Search for your Breweries</h2>
+              <div class="col s12 l12">
+                <input id = "search" type = "search" class = "search-bar col s6 l6">
+                <a  class="waves-effect waves-light btn-large col s3 l3" id = "search-btn" >Search</a>
+              </div>
+
+              <div id="selections-container" class ="row">
+                  <div>
+                      <p>text</p>
+                  </div>
+              </div>
+              <div class="row">
+               <div class = "col s9 offset-s1" >
+                <a  id = "next" class="waves-effect waves-light btn-large col s4">Next</a>
+               </div>
+                </div> 
+
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="container">
+            <div class="row">
+                <h2 class="search-title">Selected Breweries</h2>
+                <div id="selected-container" class ="col s6 l6"></div>
+                <div class = "search-bar col s6 offset-s3">
+                    <input id = "start" placeholder= "Starting Location" type = "text">
+                    <button type = "checkbox" class = "same"><i class="material-icons">check</i></button>
+                    <input id = "end"  placeholder = "Ending Location" type = "text">
+                    <button  id = "nexttwo" class="waves-effect waves-light btn-large col s6">Next</button>
+                </div>
+
+            </div>
+        </div>
+       <div class="container">
+        <div id = "map" ></div>
+        </div> 
     </main>
 
+
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAC9rmhTE_NTC3kZdlSEa-UsX__Gtznmi0&callback=initMap&libraries=&v=weekly"
-      async
-    ></script>
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAC9rmhTE_NTC3kZdlSEa-UsX__Gtznmi0&callback=initMap&libraries=&v=weekly"
+    async
+  ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="./assets/js/beer.js"></script>
-  </body>
+    <script src = "assets/js/beer.js"></script>
+</body>
 </html>
