@@ -22,7 +22,7 @@ function getBreweries() {
             class: "col s12 m6",
           }).append(
             $("<div/>", {
-              class: "card carSel addHover",
+              class: "card carSel addHover col s12",
               id: `breweryCard${i}`,
             })
               .append(
@@ -38,7 +38,7 @@ function getBreweries() {
                     "btn-floating halfway-fab waves-effect waves-light red",
                 }).append(
                   $("<i/>", {
-                    class: "material-icons addMe addHover",
+                    class: "material-icons",
                     text: "add",
                   })
                 )
