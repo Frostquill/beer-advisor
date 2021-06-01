@@ -8,132 +8,134 @@ function getBreweries() {
             return response.json();
         })
         .then(function (response) {
-            // initialize variables
-            let breweryName, breweryStreet, breweryCity, breweryState;
+            console.log(response[0]);
+            if (response[0] !== undefined) {
+                // initialize variables
+                let breweryName, breweryStreet, breweryCity, breweryState;
 
-            // populate variables with corrosponding JSON property values
-            let breweryPool = [...response];
-            
-            // debugger;
-            for (var i = 0; i < 6 - selectedBreweryArr.length; i++) {
-                let randomArrIndex = Math.floor(
-                    Math.random() * breweryPool.length
-                );
-                breweryName = response[randomArrIndex].name;
-                breweryStreet = response[randomArrIndex].street;
-                breweryCity = response[randomArrIndex].city;
-                breweryState = response[randomArrIndex].state;
-                $("#selections-container").append(
-                    $("<div/>", {
-                        class: "col s12 m6",
-                    }).append(
-                        $("<div/>", {
-                            class: "card carSel addHover col s12",
-                            id: `breweryCard`,
-                        })
-                            .append(
-                                $("<span>", {
-                                    text: breweryName,
-                                    class: `breweryName`,
-                                })
-                            )
+                // populate variables with corrosponding JSON property values
+                let breweryPool = [...response];
 
-                            .append(
-                                $("<a/>", {
-                                    class: "btn-floating halfway-fab waves-effect waves-light red",
-                                }).append(
-                                    $("<i/>", {
-                                        class: "material-icons",
-                                        text: "add",
-                                    })
-                                )
-                            )
+                // debugger;
 
-                            .append(
+                for (var i = 0; i < 6 - selectedBreweryArr.length; i++) {
+                    let randomArrIndex = Math.floor(
+                        Math.random() * breweryPool.length
+                    );
+                    if (response[randomArrIndex].street !== null) {
+                        breweryName = response[randomArrIndex].name;
+                        breweryStreet = response[randomArrIndex].street;
+                        breweryCity = response[randomArrIndex].city;
+                        breweryState = response[randomArrIndex].state;
+                        $("#selections-container").append(
+                            $("<div/>", {
+                                class: "col s12 m6",
+                            }).append(
                                 $("<div/>", {
-                                    class: "card-content",
-                                    id: "breweryAddress",
+                                    class: "card carSel addHover col s12",
+                                    id: `breweryCard`,
                                 })
                                     .append(
-                                        $("<p/>", {
-                                            id: `breweryStreet`,
-                                            text: breweryStreet,
+                                        $("<span>", {
+                                            text: breweryName,
+                                            class: `breweryName`,
                                         })
                                     )
+
                                     .append(
-                                        $("<span/>", {
-                                            id: `breweryCity`,
-                                            text: breweryCity,
-                                        }),
-                                        $("<span/>", {
-                                            id: `breweryState`,
-                                            text: breweryState,
+                                        $("<a/>", {
+                                            class: "btn-floating halfway-fab waves-effect waves-light red",
+                                        }).append(
+                                            $("<i/>", {
+                                                class: "material-icons",
+                                                text: "add",
+                                            })
+                                        )
+                                    )
+
+                                    .append(
+                                        $("<div/>", {
+                                            class: "card-content",
+                                            id: "breweryAddress",
                                         })
+                                            .append(
+                                                $("<p/>", {
+                                                    id: `breweryStreet`,
+                                                    text: breweryStreet,
+                                                })
+                                            )
+                                            .append(
+                                                $("<span/>", {
+                                                    id: `breweryCity`,
+                                                    text: breweryCity,
+                                                }),
+                                                $("<span/>", {
+                                                    id: `breweryState`,
+                                                    text: breweryState,
+                                                })
+                                            )
                                     )
                             )
-                    )
-                );
-                breweryPool.splice(randomArrIndex, 1);
-                console.log(breweryPool);
-            }
-            $("#selections-container").on(
-                "click",
-                ".material-icons",
-                function () {
-                    if ($(this).text() === "add") {
-                        let breweryObject = {
-                            name: $(this)
-                                .parent()
-                                .siblings(".breweryName")
-                                .text(),
-                            street: $(this)
-                                .parent()
-                                .siblings("#breweryAddress")
-                                .children("#breweryStreet")
-                                .text(),
-                            city: $(this)
-                                .parent()
-                                .siblings("#breweryAddress")
-                                .children("#breweryCity")
-                                .text(),
-                            state: $(this)
-                                .parent()
-                                .siblings("#breweryAddress")
-                                .children("#breweryState")
-                                .text(),
-                        };
-                        selectedBreweryArr.push(breweryObject);
-                        $(this).text("check").addClass("checkMark");
-                        localStorage.setItem(
-                            "breweries",
-                            JSON.stringify(selectedBreweryArr)
                         );
+                        breweryPool.splice(randomArrIndex, 1);
                     } else {
-                        for (var i = 0; i < selectedBreweryArr.length; i++) {
-                            if (
-                                $(this)
-                                    .parent()
-                                    .siblings(".breweryName")
-                                    .text() === selectedBreweryArr[i].name
-                            ) {
-                                selectedBreweryArr.splice(i, 1);
-                                localStorage.setItem(
-                                    "breweries",
-                                    JSON.stringify(selectedBreweryArr)
-                                );
-                            }
-                        }
-                        $(this).text("add").removeClass("checkMark");
+                        i--;
                     }
                 }
-            );
+            } else {
+                $("#search").val("No Breweries Found! Try Again!");
+                setTimeout(function () {
+                    $("#search").val("");
+                    return;
+                }, 3000);
+            }
         });
 }
+$("#selections-container").on("click", ".material-icons", function () {
+    if ($(this).text() === "add") {
+        let breweryObject = {
+            name: $(this).parent().siblings(".breweryName").text(),
+            street: $(this)
+                .parent()
+                .siblings("#breweryAddress")
+                .children("#breweryStreet")
+                .text(),
+            city: $(this)
+                .parent()
+                .siblings("#breweryAddress")
+                .children("#breweryCity")
+                .text(),
+            state: $(this)
+                .parent()
+                .siblings("#breweryAddress")
+                .children("#breweryState")
+                .text(),
+        };
+        selectedBreweryArr.push(breweryObject);
+        $(this).text("check").addClass("checkMark");
+        localStorage.setItem("breweries", JSON.stringify(selectedBreweryArr));
+    } else {
+        for (var i = 0; i < selectedBreweryArr.length; i++) {
+            if (
+                $(this).parent().siblings(".breweryName").text() ===
+                selectedBreweryArr[i].name
+            ) {
+                selectedBreweryArr.splice(i, 1);
+                localStorage.setItem(
+                    "breweries",
+                    JSON.stringify(selectedBreweryArr)
+                );
+            }
+        }
+        $(this).text("add").removeClass("checkMark");
+    }
+    return;
+});
 function savedBreweryLoad() {
     let storage = JSON.parse(localStorage.getItem("breweries"));
-    selectedBreweryArr = storage;
     $("#selections-container").empty();
     if (storage !== null) {
+        selectedBreweryArr = storage;
         for (var i = 0; i < storage.length; i++) {
             $("#selections-container").append(
                 $("<div/>", {
