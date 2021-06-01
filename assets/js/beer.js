@@ -91,6 +91,9 @@ function getBreweries() {
             }
         });
 }
+$("body").on("click", "#next", function () {
+    $("#myModal").css("display", "inherit");
+});
 $("#selections-container").on("click", ".material-icons", function () {
     if ($(this).text() === "add") {
         let breweryObject = {
