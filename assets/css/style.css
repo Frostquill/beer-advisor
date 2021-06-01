@@ -96,7 +96,7 @@ body {
 
 .addHover:hover {
     border:1px solid;
-    box-shadow: 5px 10px rgba(255,255,255,.7);
+    box-shadow: 5px 10px 15px rgba(255,255,255,.7);
     border:solid 5px gold;
     
 }
@@ -112,7 +112,7 @@ body {
 
 #next {
     background-color: #ffcc33;
-    margin:10px 0 0 40%;
+    /* margin:10px 0 0 40%; */
     color:black;
     
     

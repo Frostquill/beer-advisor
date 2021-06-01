@@ -13,6 +13,8 @@ function getBreweries() {
 
             // populate variables with corrosponding JSON property values
             let breweryPool = [...response];
+            
+            // debugger;
             for (var i = 0; i < 6 - selectedBreweryArr.length; i++) {
                 let randomArrIndex = Math.floor(
                     Math.random() * breweryPool.length
