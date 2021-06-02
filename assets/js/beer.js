@@ -1,5 +1,6 @@
 let selectedBreweryArr = [];
 let waypnts = [];
+let duplicate = false;
 function getBreweries() {
     fetch(
         "https://api.openbrewerydb.org/breweries/search?query=" +
@@ -23,11 +24,11 @@ function getBreweries() {
                     let randomArrIndex = Math.floor(
                         Math.random() * breweryPool.length
                     );
-                    if (response[randomArrIndex].street !== null) {
-                        breweryName = response[randomArrIndex].name;
-                        breweryStreet = response[randomArrIndex].street;
-                        breweryCity = response[randomArrIndex].city;
-                        breweryState = response[randomArrIndex].state;
+                    if (breweryPool[randomArrIndex].street !== null) {
+                        breweryName = breweryPool[randomArrIndex].name;
+                        breweryStreet = breweryPool[randomArrIndex].street;
+                        breweryCity = breweryPool[randomArrIndex].city;
+                        breweryState = breweryPool[randomArrIndex].state;
                         $("#selections-container").append(
                             $("<div/>", {
                                 class: "col s12 m6",
@@ -142,19 +143,38 @@ $("#selections-container").on("click", ".material-icons", function () {
                 selectedBreweryArr[i].name
             ) {
                 selectedBreweryArr.splice(i, 1);
+
                 localStorage.setItem(
                     "breweries",
                     JSON.stringify(selectedBreweryArr)
                 );
             }
         }
+        for (var i = 0; i < waypnts.length; i++) {
+            let locationString = `${$(this)
+                .parent()
+                .siblings("#breweryAddress")
+                .children("#breweryStreet")
+                .text()} ${$(this)
+                .parent()
+                .siblings("#breweryAddress")
+                .children("#breweryCity")
+                .text()} ${$(this)
+                .parent()
+                .siblings("#breweryAddress")
+                .children("#breweryState")
+                .text()}`;
+            if (locationString === waypnts[i].location) {
+                waypnts.splice(i, 1);
+            }
+        }
         $(this).text("add").removeClass("checkMark");
     }
     return;
 });
-let waypointArr = [];
 function loadWaypoints(card) {
-    waypointArr = {
+    duplicate = false;
+    let waypoint = {
         // name: $(this).parent().siblings(".breweryName").text(),
         location: `${$(card)
             .parent()
@@ -171,10 +191,22 @@ function loadWaypoints(card) {
             .text()}`,
         stopover: true,
     };
-
-    waypnts.push(waypointArr);
+    verifyNoDup(waypoint);
+    if (!duplicate) {
+        waypnts.push(waypoint);
+    }
+}
+function verifyNoDup(waypoint) {
+    for (let i = 0; i < waypnts.length; i++) {
+        if (waypnts[i].location === waypoint.location) {
+            return (duplicate = true);
+        } else {
+            duplicate = false;
+        }
+    }
 }
 function savedBreweryLoad() {
+    duplicate = false;
     let storage = JSON.parse(localStorage.getItem("breweries"));
     $("#selections-container").empty();
     if (storage !== null) {
@@ -230,12 +262,14 @@ function savedBreweryLoad() {
                         )
                 )
             );
-            waypointArr.push({
-                location: `${$("#breweryStreet").text()} ${$(
-                    "#breweryCity"
-                ).text()} ${$("#breweryState").text()}`,
+            let locationObj = {
+                location: `${storage[i].street} ${storage[i].city} ${storage[i].state}`,
                 stopover: true,
-            });
+            };
+            verifyNoDup(locationObj);
+            if (!duplicate) {
+                waypnts.push(locationObj);
+            }
         }
     }
 }
@@ -290,6 +324,7 @@ $("#waypointBtn").on("click", function () {
     waypointInput = $("#waypointInput").val("");
 });
 $("#search-btn").on("click", function () {
+    duplicate = false;
     savedBreweryLoad();
 
     getBreweries();
