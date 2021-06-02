@@ -1,4 +1,5 @@
 let selectedBreweryArr = [];
+let waypnts = [];
 function getBreweries() {
     fetch(
         "https://api.openbrewerydb.org/breweries/search?query=" +
@@ -91,8 +92,24 @@ function getBreweries() {
             }
         });
 }
+// show modal
 $("body").on("click", "#next", function () {
     $("#myModal").css("display", "inherit");
+});
+// hide modal
+$("body").on("click", "#close", function () {
+    $("#myModal").css("display", "none");
+});
+$("#checkbox").change(function () {
+    if ($(this).is(":checked")) {
+        $("#end").css("display", "none");
+    } else {
+        $("#end").css("display", "inherit");
+    }
+});
+$("#nextTwo").on("click", function () {
+    auditCheckMark();
+    $("#myModal").css("display", "none");
 });
 $("#selections-container").on("click", ".material-icons", function () {
     if ($(this).text() === "add") {
@@ -114,6 +131,7 @@ $("#selections-container").on("click", ".material-icons", function () {
                 .children("#breweryState")
                 .text(),
         };
+        loadWaypoints($(this));
         selectedBreweryArr.push(breweryObject);
         $(this).text("check").addClass("checkMark");
         localStorage.setItem("breweries", JSON.stringify(selectedBreweryArr));
@@ -134,6 +152,28 @@ $("#selections-container").on("click", ".material-icons", function () {
     }
     return;
 });
+let waypointArr = [];
+function loadWaypoints(card) {
+    waypointArr = {
+        // name: $(this).parent().siblings(".breweryName").text(),
+        location: `${$(card)
+            .parent()
+            .siblings("#breweryAddress")
+            .children("#breweryStreet")
+            .text()} ${$(card)
+            .parent()
+            .siblings("#breweryAddress")
+            .children("#breweryCity")
+            .text()} ${$(card)
+            .parent()
+            .siblings("#breweryAddress")
+            .children("#breweryState")
+            .text()}`,
+        stopover: true,
+    };
+
+    waypnts.push(waypointArr);
+}
 function savedBreweryLoad() {
     let storage = JSON.parse(localStorage.getItem("breweries"));
     $("#selections-container").empty();
@@ -190,18 +230,34 @@ function savedBreweryLoad() {
                         )
                 )
             );
+            waypointArr.push({
+                location: `${$("#breweryStreet").text()} ${$(
+                    "#breweryCity"
+                ).text()} ${$("#breweryState").text()}`,
+                stopover: true,
+            });
         }
     }
 }
 let map;
+// initial the map on DOM
 function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 34.0523523, lng: -118.2435731 },
         zoom: 8,
     });
 }
+// routing map
 let startingInput, destinationInput, waypointInput;
-let waypnts = [];
+
+// pull out objects from array
+function auditCheckMark() {
+    if ($("#checkbox").is(":checked")) {
+        renderDirectionOnMap($("#start").val(), $("#start").val());
+    } else {
+        renderDirectionOnMap($("#start").val(), $("#end").val());
+    }
+}
 
 // Calculate and render direction on the map
 const renderDirectionOnMap = (origin, destination) => {
