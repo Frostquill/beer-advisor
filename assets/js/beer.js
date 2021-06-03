@@ -111,6 +111,12 @@ $("#checkbox").change(function () {
 $("#nextTwo").on("click", function () {
     auditCheckMark();
     $("#myModal").css("display", "none");
+    localStorage.removeItem("breweries");
+    savedBreweryLoad();
+    let map = document.querySelector("#map");
+    map.scrollIntoView();
+
+
 });
 $("#selections-container").on("click", ".material-icons", function () {
     if ($(this).text() === "add") {
