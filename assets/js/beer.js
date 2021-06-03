@@ -69,7 +69,7 @@ function getBreweries() {
                                             .append(
                                                 $("<span/>", {
                                                     id: `breweryCity`,
-                                                    text: breweryCity,
+                                                    text: breweryCity + ", ",
                                                 }),
                                                 $("<span/>", {
                                                     id: `breweryState`,
@@ -252,7 +252,7 @@ function savedBreweryLoad() {
                                 .append(
                                     $("<span/>", {
                                         id: `breweryCity`,
-                                        text: storage[i].city,
+                                        text: storage[i].city + ", ",
                                     }),
                                     $("<span/>", {
                                         id: `breweryState`,
