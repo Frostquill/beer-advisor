@@ -111,7 +111,7 @@ $("#checkbox").change(function () {
 $("#checkboxOrder").change(function () {
     if ($(this).is(":checked")) {
         $("#orderModal").css("display", "inherit");
-        for (let i = 0; i < selectedBreweryArr.length; ) {}
+        arrangeArrStart();
     } else {
         $("#orderModal").css("display", "none");
     }
@@ -186,23 +186,42 @@ function setWaypoints() {
         }
     }
 }
+function arrangeArrStart() {
+    for (let i = 0; i < selectedBreweryArr.length; i++) {
+        arrangeArr(
+            selectedBreweryArr[i].name,
+            selectedBreweryArr[i].street,
+            selectedBreweryArr[i].city,
+            selectedBreweryArr[i].state
+        );
+    }
+}
 function arrangeArr(bName, bStreet, bCity, bState) {
-    $("#listGroup")
-        .append("<li>", {
+    $("#listGroup").append(
+        $("<li>", {
             class: "listGroupItem",
         })
-        .append("<p>", {
-            text: bName,
-        })
-        .append("<p>", {
-            text: bStreet,
-        })
-        .append("<p>", {
-            text: bCity,
-        })
-        .append("<p>", {
-            text: bState,
-        });
+            .append(
+                $("<span>", {
+                    text: bName,
+                })
+            )
+            .append(
+                $("<span>", {
+                    text: bStreet,
+                })
+            )
+            .append(
+                $("<span>", {
+                    text: bCity,
+                })
+            )
+            .append(
+                $("<span>", {
+                    text: bState,
+                })
+            )
+    );
 }
 
 function savedBreweryLoad() {
