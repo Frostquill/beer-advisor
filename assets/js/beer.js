@@ -101,6 +101,7 @@ $("body").on("click", "#next", function () {
 $("body").on("click", "#close", function () {
     $("#myModal").css("display", "none");
 });
+// check to see if starting and ending are the same
 $("#checkbox").change(function () {
     if ($(this).is(":checked")) {
         $("#end").css("display", "none");
@@ -108,21 +109,30 @@ $("#checkbox").change(function () {
         $("#end").css("display", "inherit");
     }
 });
+// Check to see if they'd like to select order of waypoint
 $("#checkboxOrder").change(function () {
     if ($(this).is(":checked")) {
         $("#orderModal").css("display", "inherit");
         arrangeArrStart();
+        makeSortable();
     } else {
         $("#orderModal").css("display", "none");
     }
+});
+$("#doneArrange").on("click", function () {
+    $("#orderModal").css("display", "none");
+    setWaypoints();
 });
 $("#nextTwo").on("click", function () {
     auditCheckMark();
     $("#myModal").css("display", "none");
     localStorage.removeItem("breweries");
     savedBreweryLoad();
+
     let map = document.querySelector("#map");
     map.scrollIntoView();
+    waypnts = [];
+    selectedBreweryArr = [];
 });
 $("#selections-container").on("click", ".material-icons", function () {
     if ($(this).text() === "add") {
@@ -146,7 +156,7 @@ $("#selections-container").on("click", ".material-icons", function () {
         };
         selectedBreweryArr.push(breweryObject);
         $(this).text("check").addClass("checkMark");
-        localStorage.setItem("breweries", JSON.stringify(selectedBreweryArr));
+        saveBreweries();
         setWaypoints();
     } else {
         for (var i = 0; i < selectedBreweryArr.length; i++) {
@@ -167,6 +177,54 @@ $("#selections-container").on("click", ".material-icons", function () {
     }
     return;
 });
+function saveBreweries() {
+    localStorage.setItem("breweries", JSON.stringify(selectedBreweryArr));
+}
+function makeSortable() {
+    $("#listGroup").sortable({
+        // enable dragging across lists
+        scroll: false,
+        tolerance: "pointer",
+        helper: "clone",
+        activate: function (event, ui) {
+            $(this).addClass("dropover");
+            $(".bottom-trash").addClass("bottom-trash-drag");
+        },
+        deactivate: function (event, ui) {
+            $(this).removeClass("dropover");
+            $(".bottom-trash").removeClass("bottom-trash-drag");
+        },
+        over: function (event) {
+            $(event.target).addClass("dropover-active");
+        },
+        out: function (event) {
+            $(event.target).removeClass("dropover-active");
+        },
+        update: function () {
+            var tempArr = [];
+
+            // loop over current set of children in sortable list
+            $("#listGroup")
+                .children()
+                .each(function () {
+                    // save values in temp array
+                    tempArr.push({
+                        name: $(this).children("#bName").text().trim(),
+                        street: $(this).children("#bStreet").text().trim(),
+                        city: $(this).children("#bCity").text().trim(),
+                        state: $(this).children("#bState").text().trim(),
+                    });
+                    console.log($(this));
+                });
+            console.log(tempArr);
+
+            // update array on tasks object and save
+            selectedBreweryArr = tempArr;
+            saveBreweries();
+            arrangeArrStart();
+        },
+    });
+}
 function setWaypoints() {
     waypnts = [];
     let tempLocal = JSON.parse(localStorage.getItem("breweries"));
@@ -187,38 +245,49 @@ function setWaypoints() {
     }
 }
 function arrangeArrStart() {
+    $("#listGroup").empty();
     for (let i = 0; i < selectedBreweryArr.length; i++) {
         arrangeArr(
             selectedBreweryArr[i].name,
             selectedBreweryArr[i].street,
             selectedBreweryArr[i].city,
-            selectedBreweryArr[i].state
+            selectedBreweryArr[i].state,
+            i
         );
     }
 }
-function arrangeArr(bName, bStreet, bCity, bState) {
+function arrangeArr(bName, bStreet, bCity, bState, index) {
     $("#listGroup").append(
         $("<li>", {
             class: "listGroupItem",
         })
             .append(
+                $("<p>", {
+                    text: index + 1,
+                })
+            )
+            .append(
                 $("<span>", {
                     text: bName,
+                    id: "bName",
                 })
             )
             .append(
                 $("<span>", {
                     text: bStreet,
+                    id: "bStreet",
                 })
             )
             .append(
                 $("<span>", {
                     text: bCity,
+                    id: "bCity",
                 })
             )
             .append(
                 $("<span>", {
                     text: bState,
+                    id: "bState",
                 })
             )
     );
@@ -305,11 +374,18 @@ function auditCheckMark() {
 
 // Calculate and render direction on the map
 const renderDirectionOnMap = (origin, destination) => {
-    // fetch the brewery api
-    // fetch()
     let directionService = new google.maps.DirectionsService(),
         directionRenderer = new google.maps.DirectionsRenderer(),
         // what we are sending
+        request;
+    if ($("#checkboxOrder").is(":checked")) {
+        request = {
+            origin: origin,
+            destination: destination,
+            waypoints: waypnts,
+            travelMode: "DRIVING",
+        };
+    } else {
         request = {
             origin: origin,
             destination: destination,
@@ -317,6 +393,7 @@ const renderDirectionOnMap = (origin, destination) => {
             optimizeWaypoints: true,
             travelMode: "DRIVING",
         };
+    }
     directionRenderer.setMap(map);
     directionService.route(request, (result, status) => {
         if (status == "OK") {
