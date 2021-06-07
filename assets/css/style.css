@@ -132,16 +132,11 @@ input {
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
+    width: fit-content;
+
 }
-.listGroupItem {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    line-height: 1.1rem;
-}
+
+
 
 #nextTwo {
     color: whitesmoke;
@@ -175,6 +170,7 @@ input {
     border: 2px solid black;
     margin-top: 10px;
     font-size: 20px;
+    width:60vh;
 }
 
 #end {
@@ -205,6 +201,38 @@ input {
     width: 40px;
     border-radius: 30px;
 }
+
+.listGroupItem {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.1rem;
+    margin-left:10px;
+    background-color: gold;
+    border: 2px solid #623812;
+    padding: 10px;
+    
+}
+
+#listGroup {
+    display:flex;
+    flex-wrap:wrap;
+}
+
+#order-content {
+    background-color:grey;
+    border:2px solid gold;
+}
+
+#doneArrange {
+    color: whitesmoke;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
 /* selected breweries end */
 /* map and directions start */
 #map {
@@ -238,7 +266,7 @@ input {
 
     .carSel {
         height: 150px;
-        padding-top: 10px !important;
+        padding: 10px 0 !important;
     }
 
     .modal-content {
