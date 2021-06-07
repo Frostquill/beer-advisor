@@ -108,6 +108,14 @@ $("#checkbox").change(function () {
         $("#end").css("display", "inherit");
     }
 });
+$("#checkboxOrder").change(function () {
+    if ($(this).is(":checked")) {
+        $("#orderModal").css("display", "inherit");
+        arrangeArrStart();
+    } else {
+        $("#orderModal").css("display", "none");
+    }
+});
 $("#nextTwo").on("click", function () {
     auditCheckMark();
     $("#myModal").css("display", "none");
@@ -115,8 +123,6 @@ $("#nextTwo").on("click", function () {
     savedBreweryLoad();
     let map = document.querySelector("#map");
     map.scrollIntoView();
-
-
 });
 $("#selections-container").on("click", ".material-icons", function () {
     if ($(this).text() === "add") {
@@ -138,10 +144,10 @@ $("#selections-container").on("click", ".material-icons", function () {
                 .children("#breweryState")
                 .text(),
         };
-        loadWaypoints($(this));
         selectedBreweryArr.push(breweryObject);
         $(this).text("check").addClass("checkMark");
         localStorage.setItem("breweries", JSON.stringify(selectedBreweryArr));
+        setWaypoints();
     } else {
         for (var i = 0; i < selectedBreweryArr.length; i++) {
             if (
@@ -156,63 +162,69 @@ $("#selections-container").on("click", ".material-icons", function () {
                 );
             }
         }
-        for (var i = 0; i < waypnts.length; i++) {
-            let locationString = `${$(this)
-                .parent()
-                .siblings("#breweryAddress")
-                .children("#breweryStreet")
-                .text()} ${$(this)
-                .parent()
-                .siblings("#breweryAddress")
-                .children("#breweryCity")
-                .text()} ${$(this)
-                .parent()
-                .siblings("#breweryAddress")
-                .children("#breweryState")
-                .text()}`;
-            if (locationString === waypnts[i].location) {
-                waypnts.splice(i, 1);
-            }
-        }
+        setWaypoints();
         $(this).text("add").removeClass("checkMark");
     }
     return;
 });
-function loadWaypoints(card) {
-    duplicate = false;
-    let waypoint = {
-        // name: $(this).parent().siblings(".breweryName").text(),
-        location: `${$(card)
-            .parent()
-            .siblings("#breweryAddress")
-            .children("#breweryStreet")
-            .text()} ${$(card)
-            .parent()
-            .siblings("#breweryAddress")
-            .children("#breweryCity")
-            .text()} ${$(card)
-            .parent()
-            .siblings("#breweryAddress")
-            .children("#breweryState")
-            .text()}`,
-        stopover: true,
-    };
-    verifyNoDup(waypoint);
-    if (!duplicate) {
-        waypnts.push(waypoint);
-    }
-}
-function verifyNoDup(waypoint) {
-    for (let i = 0; i < waypnts.length; i++) {
-        if (waypnts[i].location === waypoint.location) {
-            return (duplicate = true);
-        } else {
-            duplicate = false;
+function setWaypoints() {
+    waypnts = [];
+    let tempLocal = JSON.parse(localStorage.getItem("breweries"));
+    if (!tempLocal) {
+        tempLocal = [];
+    } else {
+        for (let i = 0; i < tempLocal.length; i++) {
+            let tempStreet = tempLocal[i].street;
+            let tempCity = tempLocal[i].city;
+            let tempState = tempLocal[i].state;
+            let tempString = tempStreet + " " + tempCity + " " + tempState;
+            let waypointObj = {
+                location: tempString,
+                stopover: true,
+            };
+            waypnts.push(waypointObj);
         }
     }
 }
+function arrangeArrStart() {
+    for (let i = 0; i < selectedBreweryArr.length; i++) {
+        arrangeArr(
+            selectedBreweryArr[i].name,
+            selectedBreweryArr[i].street,
+            selectedBreweryArr[i].city,
+            selectedBreweryArr[i].state
+        );
+    }
+}
+function arrangeArr(bName, bStreet, bCity, bState) {
+    $("#listGroup").append(
+        $("<li>", {
+            class: "listGroupItem",
+        })
+            .append(
+                $("<span>", {
+                    text: bName,
+                })
+            )
+            .append(
+                $("<span>", {
+                    text: bStreet,
+                })
+            )
+            .append(
+                $("<span>", {
+                    text: bCity,
+                })
+            )
+            .append(
+                $("<span>", {
+                    text: bState,
+                })
+            )
+    );
+}
+
 function savedBreweryLoad() {
-    duplicate = false;
     let storage = JSON.parse(localStorage.getItem("breweries"));
     $("#selections-container").empty();
     if (storage !== null) {
@@ -268,14 +280,6 @@ function savedBreweryLoad() {
                         )
                 )
             );
-            let locationObj = {
-                location: `${storage[i].street} ${storage[i].city} ${storage[i].state}`,
-                stopover: true,
-            };
-            verifyNoDup(locationObj);
-            if (!duplicate) {
-                waypnts.push(locationObj);
-            }
         }
     }
 }
@@ -310,6 +314,7 @@ const renderDirectionOnMap = (origin, destination) => {
             origin: origin,
             destination: destination,
             waypoints: waypnts,
+            optimizeWaypoints: true,
             travelMode: "DRIVING",
         };
     directionRenderer.setMap(map);
@@ -320,15 +325,6 @@ const renderDirectionOnMap = (origin, destination) => {
     });
 };
 
-$("#waypointBtn").on("click", function () {
-    waypointInput = $("#waypointInput").val();
-    //   push the waypoints as an object into a new arr
-    waypnts.push({
-        location: waypointInput,
-        stopover: true,
-    });
-    waypointInput = $("#waypointInput").val("");
-});
 $("#search-btn").on("click", function () {
     duplicate = false;
     savedBreweryLoad();
@@ -340,3 +336,4 @@ $("#search-btn").on("click", function () {
     // renderDirectionOnMap(startingInput, destinationInput);
 });
 savedBreweryLoad();
+setWaypoints();
