@@ -108,6 +108,14 @@ $("#checkbox").change(function () {
         $("#end").css("display", "inherit");
     }
 });
+$("#checkboxOrder").change(function () {
+    if ($(this).is(":checked")) {
+        $("#orderModal").css("display", "inherit");
+        for (let i = 0; i <selectedBreweryArr.length;)
+    } else {
+        $("#orderModal").css("display", "none");
+    }
+});
 $("#nextTwo").on("click", function () {
     auditCheckMark();
     $("#myModal").css("display", "none");
@@ -115,8 +123,6 @@ $("#nextTwo").on("click", function () {
     savedBreweryLoad();
     let map = document.querySelector("#map");
     map.scrollIntoView();
-
-
 });
 $("#selections-container").on("click", ".material-icons", function () {
     if ($(this).text() === "add") {
@@ -178,6 +184,34 @@ $("#selections-container").on("click", ".material-icons", function () {
     }
     return;
 });
+function testFunc () {
+    let tempLocal = JSON.parse(localStorage.getItem("breweries"));
+    for (let i = 0; i <selectedBreweryArr.length; i++) {
+        let tempStreet = tempLocal[i].street;
+        let tempCity = tempLocal[i].city;
+        let tempState = tempLocal[i].state;
+        let tempString = tempStreet + " " + tempCity + " " + tempState
+        waypnts.push(tempString);
+    }
+}
+function arrangeArr(bName, bStreet, bCity, bState) {
+    $("#listGroup")
+        .append("<li>", {
+            class: "listGroupItem",
+        })
+        .append("<p>", {
+            text: bName,
+        })
+        .append("<p>", {
+            text: bStreet,
+        })
+        .append("<p>", {
+            text: bCity,
+        })
+        .append("<p>", {
+            text: bState,
+        });
+}
 function loadWaypoints(card) {
     duplicate = false;
     let waypoint = {
