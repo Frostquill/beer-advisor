@@ -1,0 +1,279 @@
+/* generic classes */
+
+body {
+    background-color: rgb(201, 201, 201);
+}
+
+/* .container {
+    height: 100vh;
+    margin-top: 3%;
+    position: relative;
+} */
+main {
+    height: 100%;
+}
+
+input {
+    padding-left: 5px !important;
+}
+
+/* header and hero image styles */
+.hero-image {
+    background-color: rgb(179, 179, 179);
+    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.671);
+    /* background-size:cover; */
+    height: 125px;
+    background-position: 100%;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    height: 80px;
+}
+
+/* selections and search bar start  */
+
+.search-title {
+    text-align: center;
+}
+
+#search {
+    margin-bottom: 0px;
+    background-color: whitesmoke;
+    border: solid black 1px;
+    height: 52px;
+    font-size: 25px;
+}
+
+#search-btn {
+    /* width: 150px; */
+    background-color: #ffcc33;
+    color: black;
+    font-size: 25px;
+}
+
+#search-btn:hover {
+    background-color: gold;
+    box-shadow: 2px 2px 5px black;
+}
+
+#selections-container {
+    background-image: url("../images/beer-table.jpeg");
+    /* background-color:black; */
+    background-position: center;
+    background-size: 100%;
+    border-radius: 10px;
+    height: 50rem;
+    box-shadow: 5px 5px 20px;
+    /* margin-top: 10%; */
+    /* filter:blur(5px); */
+}
+
+.carSel {
+    margin-top: 5%;
+    border: solid 5px #623812;
+    border-radius: 10px;
+    height: 200px;
+    background-color: rgba(255, 218, 107, 0.849);
+    font-size: 20px;
+    color: #623812;
+    font-weight: bold;
+    padding: 5% !important;
+    text-align: center;
+}
+
+.checkBox:hover {
+    background-color: green;
+}
+
+.addHover:hover {
+    border: 1px solid;
+    box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.7);
+    border: solid 5px gold;
+}
+
+.btn-select {
+    height: 200px;
+    background-color: green;
+}
+
+#next {
+    background-color: #ffcc33;
+    /* margin:10px 0 0 40%; */
+    color: black;
+}
+
+#next:hover {
+    background-color: gold;
+    box-shadow: 2px 2px 5px black;
+}
+
+/*  search end */
+/* selected breweries start */
+.modal {
+    /* display: inherit; */
+    /* position:absolute; */
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    max-height: 100% !important;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: fit-content;
+
+}
+
+
+
+#nextTwo {
+    color: whitesmoke;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#nextTwo:hover,
+#nextTwo:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+#selectedContainer {
+    height: 50rem;
+}
+
+.check-box {
+    width: 25%;
+    height: 25%;
+    background-color: white;
+}
+
+.checkMark {
+    background-color: green;
+}
+
+#start {
+    background-color: whitesmoke;
+    border: 2px solid black;
+    margin-top: 10px;
+    font-size: 20px;
+    width:60vh;
+}
+
+#end {
+    background-color: whitesmoke;
+    border: 2px solid black;
+    font-size: 20px;
+    display: none;
+}
+
+#locationSel {
+    margin-top: 35px;
+    /* background-color:white; */
+}
+
+[type="checkbox"].filled-in:not(:checked) + span:not(.lever):after {
+    background-color: white;
+}
+#close {
+    margin-left: 8px;
+}
+#escape {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    bottom: 45px;
+    left: 35px;
+    width: 40px;
+    border-radius: 30px;
+}
+
+.listGroupItem {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.1rem;
+    margin-left:10px;
+    background-color: gold;
+    border: 2px solid #623812;
+    padding: 10px;
+    
+}
+
+#listGroup {
+    display:flex;
+    flex-wrap:wrap;
+}
+
+#order-content {
+    background-color:grey;
+    border:2px solid gold;
+}
+
+#doneArrange {
+    color: whitesmoke;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* selected breweries end */
+/* map and directions start */
+#map {
+    /* margin: 10% 0 10% 15%; */
+    height: 500px;
+    /* width: 70%; */
+    background-color: greenyellow;
+}
+/* media queries start */
+/* draggable start  */
+/* .dropover {
+
+}
+.dropover-active {
+
+}
+
+.brewOrder {
+
+} */
+@media screen and (max-width: 600px) {
+    #selections-container {
+        background-image: none;
+        box-shadow: none;
+    }
+
+    #map {
+        height: 500px;
+        width: 100%;
+    }
+
+    .carSel {
+        height: 150px;
+        padding: 10px 0 !important;
+    }
+
+    .modal-content {
+        width: 80%;
+    }
+
+    #search-btn {
+        margin-top: 5%;
+    }
+}

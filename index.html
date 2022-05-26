@@ -4,14 +4,155 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+        />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./assets/css/style.css" />
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
         <title>Document</title>
     </head>
     <body>
-        <div class="this-is-something">
-            PI've got a lovely bunch of coconuts
-        </div>
-        <div id="here-we-go">There they are just standing in a row</div>
+        <header class="hero-image">
+            <img
+                src="./assets/images/beer-advisor-logo.png"
+                class="logo"
+                alt="beer-advisor"
+            />
+        </header>
+        <main>
+            <!-- search and card start -->
+            <div class="container section-one">
+                <div class="row">
+                    <h2 class="search-title">Search for your Breweries</h2>
+                    <div class="col s12 l12">
+                        <input
+                            id="search"
+                            type="search"
+                            class="search-bar col s12 l6 offset-l2"
+                        />
+                        <a
+                            class="
+                                waves-effect waves-light
+                                btn-large
+                                col
+                                s6
+                                l2
+                                offset-s3
+                            "
+                            id="search-btn"
+                            >Search<i class="material-icons">search</i></a
+                        >
+                    </div>
+                </div>
+                <br />
+                <div id="selections-container" class="row"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <a
+                            id="next"
+                            class="
+                                waves-effect waves-light
+                                btn-large
+                                col
+                                s4
+                                offset-s4
+                            "
+                            >Next</a
+                        >
+                    </div>
+                </div>
+            </div>
+            <!-- search and card end -->
+            <!-- modal start  -->
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <div class="col s12">
+                        <a id="escape" class="waves-effect waves-light red"
+                            ><i id="close" class="material-icons">close</i></a
+                        >
+                        <input
+                            id="start"
+                            placeholder="Starting Location"
+                            type="text"
+                        />
+                        <input
+                            id="end"
+                            placeholder="Ending Location"
+                            type="text"
+                        />
+                    </div>
+                    <div>
+                        <p id="locationSel">
+                            <label>
+                                <input
+                                    id="checkbox"
+                                    type="checkbox"
+                                    class="filled-in"
+                                    checked="checked"
+                                />
+                                <span>Start and End are the same</span>
+                            </label>
+                        </p>
+                        <p id="locationSel">
+                            <label>
+                                <input
+                                    id="checkboxOrder"
+                                    type="checkbox"
+                                    class="filled-in order"
+                                />
+                                <span>Choose Order?</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="col s12 center-align">
+                        <a
+                            id="nextTwo"
+                            class="waves-effect waves-light btn-large"
+                            >Map It</a
+                        >
+                    </div>
+                </div>
+            </div>
 
-        <div class="here">I am new div</div>
+            <div id="orderModal" class="modal">
+                <div id = "order-content" class="modal-content">
+                    <ul id="listGroup"></ul>
+                    <div class="col s12 center-align">
+                        <a
+                            id="doneArrange"
+                            class="waves-effect waves-light btn-large"
+                            >Done</a
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- modal end -->
+            <!-- map start  -->
+            <div class="container map-container">
+                <div class="row">
+                    <div id="map" class="col s12 l10 offset-l1"></div>
+                </div>
+            </div>
+            <!-- map end -->
+        </main>
+
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbe2m8DojkGYGnFqmya4qRAfJQwONOrxU&callback=initMap&libraries=&v=weekly"
+            async
+        ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+            integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script src="assets/js/beer.js"></script>
     </body>
 </html>
